@@ -22,7 +22,5 @@ type Interface interface {
 	// available on the network?
 	HasBlock(context.Context, *blocks.Block) error
 
-	GetWantlist() []u.Key
-
 	io.Closer
 }
