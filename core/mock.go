@@ -2,6 +2,7 @@ package core
 
 import (
 	context "github.com/jbenet/go-ipfs/Godeps/_workspace/src/code.google.com/p/go.net/context"
+	ctxgroup "github.com/jbenet/go-ipfs/Godeps/_workspace/src/github.com/jbenet/go-ctxgroup"
 	"github.com/jbenet/go-ipfs/Godeps/_workspace/src/github.com/jbenet/go-datastore"
 	syncds "github.com/jbenet/go-ipfs/Godeps/_workspace/src/github.com/jbenet/go-datastore/sync"
 	"github.com/jbenet/go-ipfs/blocks/blockstore"
@@ -39,6 +40,7 @@ func NewMockNode() (*IpfsNode, error) {
 	nd.Peerstore = peer.NewPeerstore()
 	nd.Peerstore.AddPrivKey(p, ident.PrivateKey())
 	nd.Peerstore.AddPubKey(p, ident.PublicKey())
+	nd.ContextGroup = ctxgroup.WithContext(ctx)
 
 	nd.PeerHost, err = mocknet.New(ctx).AddPeer(ident.PrivateKey(), ident.Address()) // effectively offline
 	if err != nil {
